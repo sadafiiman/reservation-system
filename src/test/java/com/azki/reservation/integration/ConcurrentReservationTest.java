@@ -1,5 +1,6 @@
 package com.azki.reservation.integration;
 
+import com.azki.reservation.domain.reservation.Reservation;
 import com.azki.reservation.domain.slot.AvailableSlot;
 import com.azki.reservation.domain.user.User;
 import com.azki.reservation.repository.AvailableSlotRepository;
@@ -64,7 +65,7 @@ class ConcurrentReservationTest extends BaseIntegrationTest {
             slot.setEndTime(start.plusHours(i + 1));
             slot.setReserved(false);
 
-            slotRepository.save(slot);
+            slotRepository.save(slot); // actually no need to slotRepository.save(slot) Hibernate dirty checking will update automatically.
         }
     }
 
@@ -114,7 +115,7 @@ class ConcurrentReservationTest extends BaseIntegrationTest {
         assertThat(
                 reservationRepository.findAll()
                         .stream()
-                        .map(r -> r.getSlotId())
+                        .map(Reservation::getSlotId)
                         .distinct()
                         .count()
         ).isEqualTo(SLOT_COUNT);

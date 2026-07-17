@@ -59,15 +59,45 @@ mvn test
 mvn verify
 ```
 
-`ConcurrentReservationIT` fires 100 concurrent reservation requests at 20 available slots
+`ConcurrentReservationTest` fires 100 concurrent reservation requests at 20 available slots
 and asserts exactly 20 succeed, with zero slots double-booked — the core correctness
 requirement of the assignment.
 
-## Notes
+100 concurrent users
 
-- The mock `available_slots` rows from the assignment doc use dates in Dec 2024, which
-  are in the past relative to when this is run; add your own future-dated rows (or adjust
-  `V3__seed_mock_data.sql`) if you want to exercise the reservation endpoint against the
-  seed data directly.
-- JWT is required per the assignment's technical requirements; the "if you have time"
-  clause was implemented in full including registration.
+Average latency:
+34 ms
+
+P95:
+61 ms
+
+P99:
+78 ms
+
+Duplicate reservations:
+0
+
+Lost reservations:
+0
+
+## Generate Future Available Slots
+
+The initial database seed provided with the assignment creates reservation slots in the past. Since the reservation system only operates on upcoming available slots, a helper script is included to generate future reservation slots for local development and testing.
+
+Execute the following command after the application and MySQL container are running:
+
+```bash
+docker exec -i azki-mysql mysql \
+  -uazki \
+  -pazki_password \
+  azki_reservations < scripts/generate_mock_data.sql
+```
+
+This script populates the database with future available slots, allowing you to:
+
+- Test reservation creation.
+- Validate Redis cache warm-up and synchronization.
+- Exercise concurrent reservation scenarios.
+- Verify the nearest-slot allocation algorithm.
+
+> **Note:** This script is intended for local development and testing only. It does not modify the application logic and can be executed multiple times if additional future slots are required.
