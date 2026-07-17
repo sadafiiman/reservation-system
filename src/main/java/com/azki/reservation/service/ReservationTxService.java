@@ -50,7 +50,7 @@ public class ReservationTxService {
         }
 
         slot.setReserved(true);
-        slotRepository.save(slot);
+        slotRepository.save(slot); // actually no need to slotRepository.save(slot) Hibernate dirty checking will update automatically.
 
         Reservation reservation = new Reservation();
         reservation.setUserId(userId);
@@ -91,7 +91,7 @@ public class ReservationTxService {
         AvailableSlot slot = slotRepository.lockById(reservation.getSlotId())
                 .orElseThrow(() -> new SlotNotFoundException(reservation.getSlotId()));
         slot.setReserved(false);
-        slotRepository.save(slot);
+        slotRepository.save(slot); // actually no need to slotRepository.save(slot) Hibernate dirty checking will flush automatically.
 
         // Only return the slot to the cache if it's still within the active
         // window and in the future -- keeps Redis from re-accumulating
