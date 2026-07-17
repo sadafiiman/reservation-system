@@ -13,6 +13,26 @@ import java.time.LocalDateTime;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(NoAvailableSlotException.class)
+    public ResponseEntity<ErrorResponse> handleNoSlot(NoAvailableSlotException ex) {
+        return build(HttpStatus.CONFLICT, ex.getMessage());
+    }
+
+    @ExceptionHandler(SlotAlreadyReservedException.class)
+    public ResponseEntity<ErrorResponse> handleAlreadyReserved(SlotAlreadyReservedException ex) {
+        return build(HttpStatus.CONFLICT, ex.getMessage());
+    }
+
+    @ExceptionHandler(SlotNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleSlotNotFound(SlotNotFoundException ex) {
+        return build(HttpStatus.NOT_FOUND, ex.getMessage());
+    }
+
+    @ExceptionHandler(ReservationNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleReservationNotFound(ReservationNotFoundException ex) {
+        return build(HttpStatus.NOT_FOUND, ex.getMessage());
+    }
+
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<ErrorResponse> handleUserExists(UserAlreadyExistsException ex) {
         return build(HttpStatus.CONFLICT, ex.getMessage());
