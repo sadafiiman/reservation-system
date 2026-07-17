@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ConcurrentReservationIT extends BaseIntegrationTest {
+class ConcurrentReservationTest extends BaseIntegrationTest {
 
     private static final int SLOT_COUNT = 20;
     private static final int USER_COUNT = 100;
