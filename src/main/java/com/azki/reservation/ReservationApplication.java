@@ -8,9 +8,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableScheduling
 @ConfigurationPropertiesScan
-public class ReservationSystemApplication {
+public class ReservationApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ReservationSystemApplication.class, args);
+		SpringApplication.run(ReservationApplication.class, args);
 	}
 }
