@@ -1,7 +1,7 @@
 INSERT INTO users (username, email, password) VALUES
-('user1', 'johndoe@example.com', '$2a$10$7EqJtq98hPqEX7fNZaFWoOhi5X.QhH6Dv6P.zi5j5x0YQ6mF4c6.2'), -- bcrypt hash, plaintext: password123
-('user2', 'janedoe@example.com', '$2a$10$7EqJtq98hPqEX7fNZaFWoOhi5X.QhH6Dv6P.zi5j5x0YQ6mF4c6.2'),
-('user3', 'user123@example.com', '$2a$10$7EqJtq98hPqEX7fNZaFWoOhi5X.QhH6Dv6P.zi5j5x0YQ6mF4c6.2');
+('user1', 'johndoe@example.com', '$2a$10$.tDe3e/15qYPiXdNpcCTmuiHoNOsTjjyOrUSuOwmD/aZgS/hybJfq'), -- plaintext: password123
+('user2', 'janedoe@example.com', '$2a$10$.tDe3e/15qYPiXdNpcCTmuiHoNOsTjjyOrUSuOwmD/aZgS/hybJfq'),
+('user3', 'user123@example.com', '$2a$10$.tDe3e/15qYPiXdNpcCTmuiHoNOsTjjyOrUSuOwmD/aZgS/hybJfq');
 
 INSERT INTO available_slots (start_time, end_time, is_reserved) VALUES
 ('2024-12-29 09:00:00', '2024-12-29 10:00:00', FALSE),
