@@ -1,0 +1,23 @@
+spring:
+
+  datasource:
+    url: jdbc:mysql://localhost:3307/azki_reservations_test?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: azki
+    password: azki_password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+  flyway:
+    enabled: true
+
+  data:
+    redis:
+      host: localhost
+      port: 6380
+
+jwt:
+  secret: test-only-secret-key-not-for-production-use-min-32-bytes
+  expiration-ms: 3600000
