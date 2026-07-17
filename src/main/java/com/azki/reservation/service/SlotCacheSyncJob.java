@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 /**
  * Keeps the Redis ZSET in sync with MySQL.
- *
+ * <p>
  * Why this exists: the reservation hot path (ReservationService) treats
  * Redis as a fast index and MySQL as the source of truth. If a request dies
  * between ZPOPMIN and the DB commit (e.g. pod crash), that slot id is lost
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  * job re-adds it within its next run (default: every 30s), so the system
  * self-heals without any manual intervention. ZADD is idempotent, so
  * resyncing already-cached slots is a no-op.
- *
+ * <p>
  * Only a rolling window (not all 1M+ rows) is mirrored, keeping Redis memory
  * bounded and this query index-only (idx_reserved_start).
  */
@@ -46,7 +46,7 @@ public class SlotCacheSyncJob {
         syncWindow();
     }
 
-    @Scheduled(fixedDelayString = "PT30S")
+    @Scheduled(fixedDelayString = "PT30S") // I'd move it to configuration later.
     public void syncWindow() {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime windowEnd = now.plusDays(props.getSlotWindowDays());
